@@ -8,32 +8,11 @@
 
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <script src="/js/jquery.min.js"></script>
+    <script src="\javascripts\main.js"></script>
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   </head>
-  <body>
-              <script>
-                                  
-                lista = []
-                function agregaProducto() {
-                  producto = {};
-                  producto.descripcion = document.getElementById('descripcion').value;
-                  producto.precio= document.getElementById('precio').value;;
-                  lista.push(producto);
-                  console.log(lista)
-                  escribirLista()
-                }
-                function escribirLista(){
-                  tabla = ''
-                  for(var i=0; i<lista.length; i++){
-                    tabla += "<tr><td>"+lista[i].descripcion+"</td><td>"+lista[i].precio+"</td></tr>"
-                  }
-                  document.getElementById('tabla').innerHTML = tabla;
-                }
-
-                function imprimir() {
-                  console.log("la lista es" + lista[0].descripcion)
-                }
-              </script>
+  <body onload="iniciar()">
         </div>
       </div>
       <h1 class="title"><%= title %></h1>
@@ -42,29 +21,31 @@
         <div class="column">
           <div class="field">
             <div class="select is-fullwidth">
-                <select>
-                  <option selected disabled>Selecciona la medida de las etiquetas</option>
-                  <option> 8 x 4 ( Hasta 10 etiquetas por hoja )</option>
-                  <option> 16 x 8 ( Hasta 2 etiquetas por hoja )</option>
-                  <option> 16 x 8 ( Hasta 2 etiquetas por hoja )</option>
+                <select name='selector' onchange="setEtiquetas(this.value);this.disabled=true;" class="desactivable">
+                  <option value='0' selected disabled >Selecciona la medida de las etiquetas</option>
+                  <option value='10'> 8 x 4 ( Hasta 10 etiquetas por hoja )</option>
+                  <option value='2'> 16 x 8 ( Hasta 2 etiquetas por hoja )</option>
                 </select>
               </div>
             </div>
             <div class="field">
                 <div class="control">
-                  <input class="input is-primary" type="text" id="descripcion" placeholder="Nombre del producto">
+                  <input class="input is-primary desactivable" type="text" id="descripcion" maxlength="32" placeholder="Nombre del producto" disabled tooltip="Ingrese el nombre del producto">
                 </div>
               </div>
               <div class="field">
                 <div class="control">
-                  <input class="input is-info" type="number" id="precio" placeholder="Precio">
+                  <input class="input is-info desactivable" type="number" id="precio" maxlength="4" placeholder="Precio" disabled>
                 </div>
               </div>
-              <button onclick="agregaProducto()" class="button is-success">
+              <button onclick="agregaProducto()" class="button is-success desactivable" id="botonAgregar" disabled>
                   Agregar
                 </button>
-                <button onclick="imprimir()" class="button is-primary">
+                <button onclick="imprimir();" class="button is-primary desactivable" id="botonImprimir" disabled>
                     imprimir
+                </button>
+                <button onclick="reestablecer()" class="button is-danger" id="botonReestablecer">
+                    Reestablecer
                   </button>
         </div>
       
