@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/css/bulma.css' />
+
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  </head>
+  <body>
+              <script>
+                                  
+                lista = []
+                function agregaProducto() {
+                  producto = {};
+                  producto.descripcion = document.getElementById('descripcion').value;
+                  producto.precio= document.getElementById('precio').value;;
+                  lista.push(producto);
+                  console.log(lista)
+                  escribirLista()
+                }
+                function escribirLista(){
+                  tabla = ''
+                  for(var i=0; i<lista.length; i++){
+                    tabla += "<tr><td>"+lista[i].descripcion+"</td><td>"+lista[i].precio+"</td></tr>"
+                  }
+                  document.getElementById('tabla').innerHTML = tabla;
+                }
+
+                function imprimir() {
+                  console.log("la lista es" + lista[0].descripcion)
+                }
+              </script>
+        </div>
+      </div>
+      <h1 class="title"><%= title %></h1>
+
+      <div class="columns">
+        <div class="column">
+          <div class="field">
+            <div class="select is-fullwidth">
+                <select>
+                  <option selected disabled>Selecciona la medida de las etiquetas</option>
+                  <option> 8 x 4 ( Hasta 10 etiquetas por hoja )</option>
+                  <option> 16 x 8 ( Hasta 2 etiquetas por hoja )</option>
+                </select>
+              </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                  <input class="input is-primary" type="text" id="descripcion" placeholder="Nombre del producto">
+                </div>
+              </div>
+              <div class="field">
+                <div class="control">
+                  <input class="input is-info" type="number" id="precio" placeholder="Precio">
+                </div>
+              </div>
+              <button onclick="agregaProducto()" class="button is-success">
+                  Agregar
+                </button>
+                <button onclick="imprimir()" class="button is-primary">
+                    imprimir
+                  </button>
+        </div>
+      
+        <div class="column">
+          <table class="table is-striped is-bordered is-hoverable is-fullwidth">
+            <thead>
+              <tr>
+                <th>Descripción</th>
+                <th>Precio</th>
+              </tr>
+            </thead>
+            <tbody id="tabla">
+                <% for(var i=0; i<producto.length; i++) {%>
+
+                    <tr>
+                      <td><%= producto[i].descripcion %></td>
+                      <td><%= producto[i].precio %></td>
+                    </tr>
+                    <% } %>
+            </tbody>
+
+          </table>
+        </div>
+      </div>
+    
+
+  </body>
+</html>
