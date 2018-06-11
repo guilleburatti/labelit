@@ -1,8 +1,41 @@
 body {
-  padding: 50px;
+  padding: 15px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+
+table.items td{
+  text-align: center;
+  vertical-align: middle;
+}
+table.items th{
+  text-align: center;
+}
+
+.labels8x4 {
+  width: 8cm;
+  height: 4cm;
+  max-width: 8cm;
+  max-height: 4cm;
+  min-width: 8cm;
+  min-height: 4cm;
+  padding: 2px;
+  vertical-align: middle;
+}
+
+.tabla8x5 {
+  border-collapse: separate;
+  border-spacing: 5px;
+}
+.descripcion{
+  font-family: sans-serif;
+  font-size: 0.9cm;
+  color: black
+}
+.precio{
+  font-size: 1.3cm;
+  color: rgb(87, 87, 87);
 }

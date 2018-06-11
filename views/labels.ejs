@@ -1,18 +1,36 @@
-<table>
-    <% for(var i=0; i<etiquetas.length; i++) {%>
-        <tr >x; width:9cm;height: 5cm; al
-            <td style="border:solid; border-color: black;padding: 50; align-content: center;justify-content: center;text-align: center">
-                <p>
-                    <!--Descripcion-->
-                    <%= etiquetas[i].descripcion %>
-                </p>
-                <p>
-                    <%= etiquetas[i].precio %>
-                    <!--Precio-->
-                </p>
-            </td>
-        </tr>
-    <% } %>
-</table>
-<%= JSON.stringify(etiquetas) %>
-length <%= etiquetas.length %>
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>etiquetas</title>
+    <link rel='stylesheet' href='/css/bulma.css' />
+
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="/js/jquery.min.js"></script>
+    <script src="\javascripts\main.js"></script>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  </head>
+  <body>
+        <table class='tabla8x5'>
+        <% for(var i = 0; i< json.length ; i++) { %>
+            <% if (i % 2 == 0){ %>
+                <tr>
+            <% } %>
+                <td class='<%= td %>' style="border:solid; border-color: black;padding: 50; align-content: center;justify-content: center;text-align: center">
+                    <p class='descripcion'> 
+                        <%- json[i].descripcion %>
+                    </p>
+                    <p class='precio'>
+                            <%- '$'+json[i].precio %>
+
+                    </p>
+                </td>
+
+        <% } %>
+    </table>
+
+  </body>
+</html>
+

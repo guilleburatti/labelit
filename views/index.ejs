@@ -12,7 +12,7 @@
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   </head>
-  <body onload="iniciar()">
+  <body onload="iniciar(<%- etiquetas %>,<%- producto.length %>)">
         </div>
       </div>
       <h1 class="title"><%= title %></h1>
@@ -21,7 +21,7 @@
         <div class="column">
           <div class="field">
             <div class="select is-fullwidth">
-                <select name='selector' onchange="setEtiquetas(this.value);this.disabled=true;" class="desactivable">
+                <select name='selector' id='selector' onchange="setCantEt(this.value);this.disabled=true;" class="desactivable">
                   <option value='0' selected disabled >Selecciona la medida de las etiquetas</option>
                   <option value='10'> 8 x 4 ( Hasta 10 etiquetas por hoja )</option>
                   <option value='2'> 16 x 8 ( Hasta 2 etiquetas por hoja )</option>
@@ -30,7 +30,7 @@
             </div>
             <div class="field">
                 <div class="control">
-                  <input class="input is-primary desactivable" type="text" id="descripcion" maxlength="32" placeholder="Nombre del producto" disabled tooltip="Ingrese el nombre del producto">
+                  <input class="input is-primary desactivable" type="text" id="descripcion" maxlength="28" placeholder="Nombre del producto" disabled tooltip="Ingrese el nombre del producto">
                 </div>
               </div>
               <div class="field">
@@ -38,33 +38,35 @@
                   <input class="input is-info desactivable" type="number" id="precio" maxlength="4" placeholder="Precio" disabled>
                 </div>
               </div>
-              <button onclick="agregaProducto()" class="button is-success desactivable" id="botonAgregar" disabled>
+              <button onclick="agregaProducto('add')" class="button is-success desactivable" id="botonAgregar" disabled>
                   Agregar
                 </button>
-                <button onclick="imprimir();" class="button is-primary desactivable" id="botonImprimir" disabled>
-                    imprimir
+                <button onclick="imprimir();" class="button is-primary desactivable" id="botonImprimir" href="/labels" disabled>
+                    Imprimir
                 </button>
                 <button onclick="reestablecer()" class="button is-danger" id="botonReestablecer">
-                    Reestablecer
+                    Reiniciar
                   </button>
         </div>
       
         <div class="column">
-          <table class="table is-striped is-bordered is-hoverable is-fullwidth">
+          <table class="table is-striped is-hoverable is-fullwidth items">
             <thead>
               <tr>
                 <th>Descripción</th>
                 <th>Precio</th>
+                <th>Borrar?</th>
               </tr>
             </thead>
             <tbody id="tabla">
-                <% for(var i=0; i<producto.length; i++) {%>
+              <% for(var i=0; i<producto.length; i++) {%>
 
                     <tr>
                       <td><%= producto[i].descripcion %></td>
                       <td><%= producto[i].precio %></td>
+                      <td onclick="agregaProducto('del','<%= i %>')"><span class='icon has-text-danger button'><i class='fas fa-times fa-2'></i></span></td>
                     </tr>
-                    <% } %>
+                    <% } %> 
             </tbody>
 
           </table>
