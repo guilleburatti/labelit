@@ -25,17 +25,47 @@ table.items th{
   padding: 2px;
   vertical-align: middle;
 }
-
-.tabla8x5 {
-  border-collapse: separate;
-  border-spacing: 5px;
+.labels9x5 {
+  width: 9cm;
+  height: 5cm;
+  max-width: 9cm;
+  max-height: 5cm;
+  min-width: 9cm;
+  min-height: 5cm;
+  padding: 2px;
+  vertical-align: middle;
 }
-.descripcion{
+
+.labels6x3 {
+  width: 6cm;
+  height: 3cm;
+  max-width: 6cm;
+  max-height: 3cm;
+  min-width: 6cm;
+  min-height: 3cm;
+  padding: 2px;
+  vertical-align: middle;
+}
+
+.tabla8x4 {
+  border-collapse: separate;
+  border-spacing: 8px;
+}
+.labels8x4 .descripcion{
   font-family: sans-serif;
   font-size: 0.9cm;
   color: black
 }
-.precio{
+.labels8x4 .precio{
   font-size: 1.3cm;
+  color: rgb(87, 87, 87);
+}
+.labels6x3 .descripcion{
+  font-family: sans-serif;
+  font-size: 0.5cm;
+  color: black
+}
+.labels6x3 .precio{
+  font-size: 1cm;
   color: rgb(87, 87, 87);
 }

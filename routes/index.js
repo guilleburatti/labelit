@@ -1,38 +1,87 @@
 var express = require('express');
 var router = express.Router();
-var session =  require('express-session') ;
-session.activa = true
-session.productos= []
-session.etiquetas= 0
+uSess = {}
+
+
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  sess = session;
-  console.log(session.productos)
+
+  var cookie = req.cookies.labelit;
+  if (cookie === undefined)
+  {
+    uSess.productos= []
+    uSess.etiquetas= 0
+    uSess.cssEtiquetas = ''
+    uSess.cantidadColumnas = 0
+    // no: set a new cookie
+    var randomNumber=Math.random().toString();
+    uSess.id=randomNumber.substring(2,randomNumber.length);
+    res.cookie('labelit',uSess, { maxAge: 4500000, httpOnly: false });
+    console.log('cookie created successfully');
+  } 
+  else
+  {
+    // yes, cookie was already present 
+    uSess.productos= cookie.productos
+    uSess.etiquetas= cookie.etiquetas
+    uSess.cssEtiquetas = cookie.cssEtiquetas
+    uSess.cantidadColumnas = cookie.cantidadColumnas
+    uSess.id = cookie.id
+    console.log('cookie exists', cookie);
+  } 
+  console.log('cantidad de productos> ' + uSess.productos.length)
   res.render('index', { title: 'Labelit',
-                        producto: session.productos,etiquetas:session.etiquetas });
+                        etiquetas:uSess.etiquetas,cantEtiquetas: uSess.productos.length,productos:uSess.productos});
 });
+
 router.post('/items',function(req, res, next) {
-  producto = {};
-  producto.descripcion =req.body.descripcion;
-  producto.precio = req.body.precio;
   if (req.body.accion == 'add'){
-  session.productos.push(producto)
-  console.log('agrego' + producto)
-  console.log(session.productos)
+    producto = {};
+    producto.descripcion =req.body.descripcion;
+    producto.precio = req.body.precio;
+  uSess.productos.push(producto)
+  console.log(uSess.productos)
   }
   else if (req.body.accion == 'del'){
-    session.productos.splice(session.productos.indexOf(producto))
-    console.log('saco' + producto)
-    console.log(session.productos)
+    posicion =  req.body.pos
+    console.log('la posicion deberia de ser'+ posicion)
+    console.log('saco' + uSess.productos[posicion].descripcion)
+    uSess.productos.splice(posicion,1)
   }
   else if (req.body.accion == 'delAll'){
-    session.productos = [];
-    session.etiquetas = 0
+    uSess.productos = [];
+    uSess.etiquetas = 0
   }
   else if(req.body.etiquetas){
-    session.etiquetas = req.body.etiquetas;
+    console.log('encontro etiquetas '+ req.body.etiquetas)
+    uSess.etiquetas = req.body.etiquetas;
+    switch (uSess.etiquetas) {
+      case '1':
+        uSess.cantidadColumnas = 1
+        uSess.cssEtiquetas = 'labels25x18'
+        break;
+    
+      case '2':
+        uSess.cantidadColumnas = 1
+        uSess.cssEtiquetas = 'labels18x12'
+        break;
+      case '10':
+        uSess.cantidadColumnas = 2
+        uSess.cssEtiquetas = 'labels9x5'
+        break;      
+      case '12':
+        uSess.cantidadColumnas = 2
+        uSess.cssEtiquetas = 'labels8x4'
+        break;
+      case '21':
+        uSess.cantidadColumnas = 3
+        uSess.cssEtiquetas = 'labels6x3'
+        break;
+    }
   }
-  res.send(session.productos)
+  res.cookie('labelit',uSess, { maxAge: 45000, httpOnly: false });
+  res.status(200).send(uSess.productos)
 });
 
 module.exports = router;

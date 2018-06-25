@@ -8,7 +8,10 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var labelsRouter = require('./routes/labels');
 const fs = require('fs');
+const uuid = require('uuid/v4')
 const session =  require('express-session') ;
+var cookieParser = require('cookie-parser')
+
 
 
 
@@ -33,7 +36,7 @@ app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redi
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css')); 
 app.use('/css', express.static(__dirname + '/node_modules/bulma/css')); 
 app.engine('html', require('ejs').renderFile);
-app.use(session({ secret: 'guille',resave: false,saveUninitialized: true,}));
+app.use(cookieParser())
 
 
 

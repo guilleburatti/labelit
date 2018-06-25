@@ -9,7 +9,8 @@ botonAgregar = document.getElementById('botonAgregar')
 botonImprimir = document.getElementById('botonImprimir')
 selector = document.getElementById('selector')
 if (etiquetas > 0){
-    selector.selectedIndex = etiquetas;
+    selector.value = etiquetas;
+    console.log(selector.selectedIndex)
     selector.disabled = true;
     setCantEt(etiquetas)
   }
@@ -29,7 +30,7 @@ function setCantEt(etiquetas){
   $.ajax({
     type: "POST",
     url: "/items",
-    timeout: 2000,
+    timeout: 5000,
     data: { etiquetas: etiquetas },
     success: function () {
       console.log('setted Etiquetas')
@@ -51,6 +52,7 @@ function agregaProducto(accion,pos) {
   inputDescripcion.value = '';
   inputPrecio.value = ''; 
   inputDescripcion.focus(); //hacemos foco en el nombre
+  console.log('la posicion es' + pos)
 
   $(function() {
     // body...
@@ -58,8 +60,9 @@ function agregaProducto(accion,pos) {
         type: "POST",
         url: "/items",
         timeout: 2000,
-        data: { descripcion,precio,accion },
+        data: { descripcion,precio,accion,pos },
         success: function (result) {
+          contT =0
           if (accion == 'add'){
             contTabla += 1;
           }
@@ -68,8 +71,11 @@ function agregaProducto(accion,pos) {
           }
           $('tbody').empty();
           for (data in result) {
-            $('tbody').append('<tr><td>'+result[data].descripcion +'</td><td>'+ result[data].precio + '</td><td><span onclick="agregaProducto(\''+"del"+'\',\''+contTabla+'\')" class="icon has-text-danger button"><i class="fas fa-times fa-2"></i></span></td></tr>');
-            }
+
+            $('tbody').append('<tr><td>'+result[data].descripcion +'</td><td>'+ result[data].precio + '</td><td><span onclick="agregaProducto(\''+"del"+'\',\''+contT+'\')" class="icon has-text-danger button"><i class="fas fa-times fa-2"></i></span></td></tr>');
+            contT += 1
+          }
+            console.log('set label')
             contarItems()
 
       },
