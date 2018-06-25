@@ -7,6 +7,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var labelsRouter = require('./routes/labels');
+var errorRouter = require('./routes/labels')
 const fs = require('fs');
 const uuid = require('uuid/v4')
 const session =  require('express-session') ;
@@ -31,6 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/labels', labelsRouter);
+app.use('/error',errorRouter);
 app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
 app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redirect JS jQuery
 app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css')); 
@@ -54,7 +56,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.render('error',{ title:'error!', message:'Error! sesion expirada!', buttonMsg:'volver a la pagina principal'})
 });
 
 var server     =    app.listen(3000,function(){

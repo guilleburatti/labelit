@@ -12,7 +12,7 @@
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   </head>
-  <body onload="iniciar(<%- etiquetas %>,<%- cantEtiquetas %>)">
+  <body onload="iniciar(<%- etiquetas %>,<%- cantEtiquetas %>,<%- userId %>)">
       <h1 class="title"><%= title %></h1>
       <p></p>
       <div class="columns">
@@ -42,10 +42,10 @@
               <button onclick="agregaProducto('add')" class="button is-success desactivable" id="botonAgregar" disabled>
                   Agregar
                 </button>
-                <button onclick="imprimir();" class="button is-primary desactivable" id="botonImprimir" href="/labels" disabled>
+                <button onclick="imprimir(<%- userId %>);" class="button is-primary desactivable" id="botonImprimir" href="/labels" disabled>
                     Imprimir
                 </button>
-                <button onclick="reestablecer()" class="button is-danger" id="botonReestablecer">
+                <button onclick="reestablecer(<%- userId %>)" class="button is-danger" id="botonReestablecer">
                     Reiniciar
                   </button>
         </div>

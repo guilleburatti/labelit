@@ -5,83 +5,103 @@ uSess = {}
 
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/:userId?', function(req, res, next) {
+  console.log('el usuario es: ' + userId)
 
-  var cookie = req.cookies.labelit;
-  if (cookie === undefined)
-  {
+  var userId = req.params.userId
+  if (userId === undefined)
+  { 
     uSess.productos= []
     uSess.etiquetas= 0
     uSess.cssEtiquetas = ''
     uSess.cantidadColumnas = 0
-    // no: set a new cookie
     var randomNumber=Math.random().toString();
-    uSess.id=randomNumber.substring(2,randomNumber.length);
-    res.cookie('labelit',uSess, { maxAge: 4500000, httpOnly: false });
+    uSess.id=parseInt(randomNumber.substring(2,randomNumber.length));
+    res.cookie(uSess.id,uSess, { maxAge: 1000*60, httpOnly: false });
+    console.log(uSess)
     console.log('cookie created successfully');
+    res.render('index', { title: 'Labelit',
+                          etiquetas:uSess.etiquetas,
+                          cantEtiquetas: uSess.productos.length,
+                          productos:uSess.productos,
+                          userId:uSess.id});
   } 
   else
   {
+    console.log(req.cookies[userId])
+    var cookie = req.cookies[userId]|| undefined;
+    if (cookie !== undefined)
+    { 
     // yes, cookie was already present 
-    uSess.productos= cookie.productos
-    uSess.etiquetas= cookie.etiquetas
-    uSess.cssEtiquetas = cookie.cssEtiquetas
-    uSess.cantidadColumnas = cookie.cantidadColumnas
-    uSess.id = cookie.id
+    res.render('index', { title: 'Labelit',
+                          etiquetas: cookie.etiquetas,
+                          cantEtiquetas: cookie.productos.length,
+                          productos: cookie.productos,
+                          userId:cookie.id});
     console.log('cookie exists', cookie);
+    }
+    else{
+      res.render('error',{ title:'error!', message:'Error! sesion expirada!', buttonMsg:'volver a la pagina principal'})
+        }
   } 
-  console.log('cantidad de productos> ' + uSess.productos.length)
-  res.render('index', { title: 'Labelit',
-                        etiquetas:uSess.etiquetas,cantEtiquetas: uSess.productos.length,productos:uSess.productos});
 });
 
-router.post('/items',function(req, res, next) {
+router.post('/items/:userId?',function(req, res, next) {
+  var userId = req.params.userId
+  var cookiePost = req.cookies[userId]
   if (req.body.accion == 'add'){
     producto = {};
     producto.descripcion =req.body.descripcion;
     producto.precio = req.body.precio;
-  uSess.productos.push(producto)
-  console.log(uSess.productos)
+  cookiePost.productos.push(producto)
   }
   else if (req.body.accion == 'del'){
     posicion =  req.body.pos
     console.log('la posicion deberia de ser'+ posicion)
-    console.log('saco' + uSess.productos[posicion].descripcion)
-    uSess.productos.splice(posicion,1)
+    console.log('saco' + req.cookies[userId].productos[posicion].descripcion)
+    cookiePost.productos.splice(posicion,1)
   }
   else if (req.body.accion == 'delAll'){
-    uSess.productos = [];
-    uSess.etiquetas = 0
+    cookiePost.productos.length= 0;
+    cookiePost.etiquetas = 0
+    cookiePost.cssEtiquetas = ''
+    cookiePost.cantidadColumnas = 0
+    console.log('la cookie borrada essssss \n')
+    console.log(cookiePost)
+
   }
   else if(req.body.etiquetas){
     console.log('encontro etiquetas '+ req.body.etiquetas)
-    uSess.etiquetas = req.body.etiquetas;
-    switch (uSess.etiquetas) {
-      case '1':
-        uSess.cantidadColumnas = 1
-        uSess.cssEtiquetas = 'labels25x18'
+    cookiePost.etiquetas = req.body.etiquetas;
+    switch (cookiePost.etiquetas) {
+      case '1': 
+      cookiePost.cantidadColumnas = 1
+      cookiePost.cssEtiquetas = 'labels25x18'
         break;
     
       case '2':
-        uSess.cantidadColumnas = 1
-        uSess.cssEtiquetas = 'labels18x12'
+        cookiePost.cantidadColumnas = 1
+        cookiePost.cssEtiquetas = 'labels18x12'
         break;
       case '10':
-        uSess.cantidadColumnas = 2
-        uSess.cssEtiquetas = 'labels9x5'
+        cookiePost.cantidadColumnas = 2
+        cookiePost.cssEtiquetas = 'labels9x5'
         break;      
       case '12':
-        uSess.cantidadColumnas = 2
-        uSess.cssEtiquetas = 'labels8x4'
+        cookiePost.cantidadColumnas = 2
+        cookiePost.cssEtiquetas = 'labels8x4'
         break;
       case '21':
-        uSess.cantidadColumnas = 3
-        uSess.cssEtiquetas = 'labels6x3'
+        cookiePost.cantidadColumnas = 3
+        cookiePost.cssEtiquetas = 'labels6x3'
         break;
     }
   }
-  res.cookie('labelit',uSess, { maxAge: 45000, httpOnly: false });
-  res.status(200).send(uSess.productos)
+  res.cookie(userId,cookiePost, { maxAge: 1000*60, httpOnly: false });
+  res.status(200).send(cookiePost.productos)
+  res.status(500).send('session perdida!')
+  res.status(4).send('session perdida!')
+
 });
 
 module.exports = router;

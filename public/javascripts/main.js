@@ -1,13 +1,18 @@
 var contTabla =0;
 var cantEt = 0;
-function iniciar(etiquetas,contTa) {
+var userId = 0;
+function iniciar(etiquetas,contTa,uId) {
 //Guardarmos elementos para usarlos mas facilmente
+if (!window.location.href.includes(uId)){
+  window.location.href = '/'+uId;
+}
 inputDescripcion = document.getElementById('descripcion')
 inputPrecio = document.getElementById('precio')
 tablaProductos = document.getElementById('tabla')
 botonAgregar = document.getElementById('botonAgregar')
 botonImprimir = document.getElementById('botonImprimir')
 selector = document.getElementById('selector')
+userId = uId
 if (etiquetas > 0){
     selector.value = etiquetas;
     console.log(selector.selectedIndex)
@@ -29,15 +34,15 @@ function setCantEt(etiquetas){
   cantEt = etiquetas
   $.ajax({
     type: "POST",
-    url: "/items",
+    url: "/items/"+userId,
     timeout: 5000,
-    data: { etiquetas: etiquetas },
+    data: { etiquetas: etiquetas, userId },
     success: function () {
       console.log('setted Etiquetas')
   },
     error: function(jqXHR, textStatus, errorThrown) {
-        alert(JSON.stringify(jqXHR));
-        alert("AJAX error: " + textStatus + ' : ' + errorThrown);
+      window.location.href = 'error/'
+      alert("AJAX error: " + textStatus + ' : ' + errorThrown);
     }
 });
 contarItems()
@@ -58,9 +63,9 @@ function agregaProducto(accion,pos) {
     // body...
     $.ajax({
         type: "POST",
-        url: "/items",
+        url: "/items/"+userId,
         timeout: 2000,
-        data: { descripcion,precio,accion,pos },
+        data: { descripcion,precio,accion,pos,userId },
         success: function (result) {
           contT =0
           if (accion == 'add'){
@@ -80,7 +85,7 @@ function agregaProducto(accion,pos) {
 
       },
         error: function(jqXHR, textStatus, errorThrown) {
-            alert(JSON.stringify(jqXHR));
+            window.location.href = 'error/'
             alert("AJAX error: " + textStatus + ' : ' + errorThrown);
         }
     });
@@ -88,7 +93,7 @@ function agregaProducto(accion,pos) {
 }
 
 function imprimir() {
-  window.location.href='/labels'
+  window.location.href='/labels/'+userId
 }
 
 function contarItems(){
@@ -115,13 +120,14 @@ function contarItems(){
   }
 }
 
-function reestablecer() {
+function reestablecer(userId) {
   //reestablece todo
+  var accion = 'delAll';
   $.ajax({
     type: "POST",
-    url: "/items",
+    url: "/items/"+userId,
     timeout: 2000,
-    data: { accion:'delAll' },
+    data: { accion, userId },
     success: function (result) {
       $('tbody').empty();
       $('botonImprimir').disabled = true
@@ -129,13 +135,12 @@ function reestablecer() {
 
   },
     error: function(jqXHR, textStatus, errorThrown) {
-        alert(JSON.stringify(jqXHR));
-        alert("AJAX error: " + textStatus + ' : ' + errorThrown);
+      window.location.href = 'error/';
+      alert("AJAX error: " + textStatus + ' : ' + errorThrown);
     }
 })
   selector.selectedIndex = 0;
   selector.disabled = false
-  setCantEt(0);
   contTabla =0;
   contarItems();
 }
