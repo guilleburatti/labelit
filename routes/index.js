@@ -17,7 +17,7 @@ router.get('/:userId?', function(req, res, next) {
     uSess.cantidadColumnas = 0
     var randomNumber=Math.random().toString();
     uSess.id=parseInt(randomNumber.substring(2,randomNumber.length));
-    res.cookie(uSess.id,uSess, { maxAge: 1000*60, httpOnly: false });
+    res.cookie(uSess.id,uSess, { maxAge: 1000*60*30, httpOnly: false });
     console.log(uSess)
     console.log('cookie created successfully');
     res.render('index', { title: 'Labelit',
@@ -97,7 +97,7 @@ router.post('/items/:userId?',function(req, res, next) {
         break;
     }
   }
-  res.cookie(userId,cookiePost, { maxAge: 1000*60, httpOnly: false });
+  res.cookie(userId,cookiePost, { maxAge: 1000*60*30, httpOnly: false });
   res.status(200).send(cookiePost.productos)
   res.status(500).send('session perdida!')
   res.status(4).send('session perdida!')
