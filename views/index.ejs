@@ -12,19 +12,20 @@
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   </head>
-  <body onload="iniciar(<%- etiquetas %>,<%- producto.length %>)">
-        </div>
-      </div>
+  <body onload="iniciar(<%- etiquetas %>,<%- cantEtiquetas %>)">
       <h1 class="title"><%= title %></h1>
-
+      <p></p>
       <div class="columns">
         <div class="column">
           <div class="field">
             <div class="select is-fullwidth">
                 <select name='selector' id='selector' onchange="setCantEt(this.value);this.disabled=true;" class="desactivable">
                   <option value='0' selected disabled >Selecciona la medida de las etiquetas</option>
-                  <option value='10'> 8 x 4 ( Hasta 10 etiquetas por hoja )</option>
-                  <option value='2'> 16 x 8 ( Hasta 2 etiquetas por hoja )</option>
+                  <option value="1"> 25 x 18 ( Para hacer carteles )</option>
+                  <option value="2">18 x 12 ( hasta 2 etiquetas ) </option>
+                  <option value='12'> 8 x 4 cm( Hasta 12 etiquetas por hoja )</option>
+                  <option value='10'> 9 x 5 cm( Hasta 10 etiquetas por hoja )</option>
+                  <option value='21'>5 x 3 cm(hasta 21 etiquetas)</option>
                 </select>
               </div>
             </div>
@@ -59,12 +60,12 @@
               </tr>
             </thead>
             <tbody id="tabla">
-              <% for(var i=0; i<producto.length; i++) {%>
+              <% for(var i=0; i<cantEtiquetas; i++) {%>
 
                     <tr>
-                      <td><%= producto[i].descripcion %></td>
-                      <td><%= producto[i].precio %></td>
-                      <td onclick="agregaProducto('del','<%= i %>')"><span class='icon has-text-danger button'><i class='fas fa-times fa-2'></i></span></td>
+                      <td><%= productos[i].descripcion %></td>
+                      <td><%= productos[i].precio %></td>
+                      <td onclick="agregaProducto('del','<%- i %>')"><span class='icon has-text-danger button'><i class='fas fa-times fa-2'></i></span></td>
                     </tr>
                     <% } %> 
             </tbody>

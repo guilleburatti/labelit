@@ -13,25 +13,30 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   </head>
   <body>
-        <button class="button is-primary" onclick="window.print()">Imprimir</button>
-        <table class='tabla8x5'>
-        <% for(var i = 0; i< json.length ; i++) { %>
-            <% if (i % 2 == 0){ %>
-                <tr>
-            <% } %>
-                <td class='<%= td %>' style="border:solid; border-color: black;padding: 50; align-content: center;justify-content: center;text-align: center">
-                    <p class='descripcion'> 
-                        <%- json[i].descripcion %>
-                    </p>
-                    <p class='precio'>
-                            <%- '$'+json[i].precio %>
+        <div class='columns is-centered'>
+            <div class='column is-narrow'>
+                <button class="button is-primary" onclick="window.print()">Imprimir</button>
+                <button class="button is-primary" onclick="window.location.href = '/'">Volver</button>
 
-                    </p>
-                </td>
+                <table class='tabla8x4'>
+                <% for(var i = 0; i< uSess.productos.length ; i++) { %>
+                    <% if (i % uSess.cantidadColumnas == 0){ %>
+                        <tr>
+                    <% } %>
+                        <td class='<%= uSess.cssEtiquetas %>' style="border:solid; border-color: black;padding: 50; align-content: center;justify-content: center;text-align: center">
+                            <p class='descripcion'>
+                                <%- uSess.productos[i].descripcion %>
+                            </p>
+                            <p class='precio'>
+                                    <%- '$'+uSess.productos[i].precio %>
 
-        <% } %>
-    </table>
+                            </p>
+                        </td>
 
+                <% } %>
+                </table>
+            </div>
+        </div>
   </body>
 </html>
 
