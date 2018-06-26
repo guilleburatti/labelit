@@ -16,7 +16,7 @@ userId = uId
 if (etiquetas > 0){
     selector.value = etiquetas;
     console.log(selector.selectedIndex)
-    //selector.disabled = true;
+    selector.disabled = true;
     setCantEt(etiquetas)
   }
 if (contTa > 0){
