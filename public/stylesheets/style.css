@@ -1,3 +1,8 @@
+:root{
+  --text-color: rgb(109, 109, 109);
+  --number-color: black
+}
+
 body {
   padding: 15px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
@@ -47,25 +52,59 @@ table.items th{
   vertical-align: middle;
 }
 
+.labels18x12 {
+  width: 18cm;
+  height: 12cm;
+  max-width: 18cm;
+  max-height: 12cm;
+  min-width: 18cm;
+  min-height: 12cm;
+  padding: 2px;
+  vertical-align: middle;
+}
+
+.labels18x12 .descripcion{
+  font-size: 2cm;
+  color: var(--text-color);
+}
+.labels18x12 .precio{
+  font-size: 3cm;
+  color: var(--number-color);
+  margin-bottom:25px;
+
+}
+
 .tabla8x4 {
   border-collapse: separate;
   border-spacing: 8px;
-}
-.labels8x4 .descripcion{
   font-family: sans-serif;
+}
+
+.labels9x5 .descripcion{
+  font-size: 1cm;
+  color: var(--text-color);
+  margin-bottom:10px;
+}
+.labels9x5 .precio{
+  font-size: 1.3cm;
+  color: var(--number-color);
+}
+
+.labels8x4 .descripcion{
   font-size: 0.9cm;
-  color: black
+  color: var(--text-color);
+  margin-bottom:5px;
 }
 .labels8x4 .precio{
-  font-size: 1.3cm;
-  color: rgb(87, 87, 87);
+  font-size: 1.2cm;
+  color: var(--number-color);
 }
 .labels6x3 .descripcion{
-  font-family: sans-serif;
-  font-size: 0.5cm;
-  color: black
+  font-size: 0.65cm;
+  color: var(--text-color);
+  margin-bottom: 5px;
 }
 .labels6x3 .precio{
   font-size: 1cm;
-  color: rgb(87, 87, 87);
+  color: var(--number-color);
 }

@@ -15,10 +15,21 @@
   <body>
         <div class='columns is-centered'>
             <div class='column is-narrow'>
-                <button class="button is-primary" onclick="window.print()">Imprimir</button>
-                <button class="button is-primary" onclick="window.location.href = '/<%- uSess.id %>'">Volver</button>
+                <div id='ocultar' class="has-text-centered">
+                    <div class="select is-medium is-success">
+                        <select name='font' class='font-Selector' onchange="document.getElementById('tabla').style.fontFamily = this.value">
+                            <option disabled selected>Seleccione el tipo de letra:</option>
+                            <option value='Arial' style='font-family: Arial'>Arial</option>
+                            <option value='Times' style='font-family: Times'>Times</option>
+                            <option value='Courier' style='font-family: "Courier New", Courier, monospace'>Courier</option>
+                            <option value='Georgia' style='font-family: Georgia, Times, serif,Cambria, Cochin'>Georgia</option>
+                        </select>
+                    </div>
+                    <button class="button is-success is-medium" onclick="document.getElementById('ocultar').hidden = 'true';window.print();setTimeout(function(){document.getElementById('ocultar').hidden = false;}, 100)">Imprimir</button>
+                    <button class="button is-warning is-medium" onclick="window.location.href = '/<%- uSess.id %>'">Volver</button>
 
-                <table class='tabla8x4'>
+                 </div>
+                <table class='tabla8x4' id='tabla'>
                 <% for(var i = 0; i< uSess.productos.length ; i++) { %>
                     <% if (i % uSess.cantidadColumnas == 0){ %>
                         <tr>
