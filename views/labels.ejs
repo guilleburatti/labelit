@@ -10,8 +10,13 @@
     <script src="/js/jquery.min.js"></script>
     <script src="\javascripts\main.js"></script>
 
+    <% if(uSess.cssEtiquetas === 'labels25x18'){ %>
+        <link rel='stylesheet' href='/stylesheets/landscape.css' />
+    <% } %>
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   </head>
+
   <body>
         <div class='columns is-centered'>
             <div class='column is-narrow'>
@@ -34,14 +39,16 @@
                     <% if (i % uSess.cantidadColumnas == 0){ %>
                         <tr>
                     <% } %>
-                        <td class='<%= uSess.cssEtiquetas %>' style="border:solid; border-color: black;padding: 50; align-content: center;justify-content: center;text-align: center">
+                        <td class='<%= uSess.cssEtiquetas %> cortarPalabras' style="border:solid; border-color: black;padding: 50; align-content: center;justify-content: center;text-align: center">
                             <p class='descripcion'>
                                 <%- uSess.productos[i].descripcion %>
                             </p>
+                            <% if (uSess.productos[i].precio != ''){ %>
+                                
                             <p class='precio'>
                                     <%- '$'+uSess.productos[i].precio %>
-
                             </p>
+                            <% } %>
                         </td>
 
                 <% } %>

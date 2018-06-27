@@ -3,6 +3,8 @@
   --number-color: black
 }
 
+
+
 body {
   padding: 15px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
@@ -20,6 +22,12 @@ table.items th{
   text-align: center;
 }
 
+.cortarPalabras{
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: manual;
+
+}
 .labels8x4 {
   width: 8cm;
   height: 4cm;
@@ -107,4 +115,26 @@ table.items th{
 .labels6x3 .precio{
   font-size: 1cm;
   color: var(--number-color);
+}
+
+.labels25x18 {
+  width: 25cm;
+  height: 18cm;
+  max-width: 25cm;
+  max-height: 18cm;
+  min-width: 25cm;
+  min-height: 18cm;
+  padding: 25px;
+  vertical-align: middle;
+}
+
+.labels25x18 .descripcion{
+  font-size: 3cm;
+  color: var(--text-color);
+}
+.labels25x18 .precio{
+  font-size: 4cm;
+  margin-top: 60px;
+  color: var(--number-color);
+
 }

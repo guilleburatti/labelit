@@ -1,0 +1,7 @@
+/*uso esto para cambiar la orientacion de la pagina*/
+@media print {
+    @page {
+        size: A4 landscape; 
+    }
+  }
+  

@@ -1,6 +1,7 @@
 var contTabla =0;
 var cantEt = 0;
 var userId = 0;
+var myvar = 'variableeeee'
 function iniciar(etiquetas,contTa,uId) {
 //Guardarmos elementos para usarlos mas facilmente
 if (!window.location.href.includes(uId)){
@@ -30,8 +31,21 @@ contarItems();
 function setContTa(contTa){
   contTabla = contTa
 }
-function setCantEt(etiquetas){
+
+function setCantCaracteres(opcion){
+  maxCant = 0
+  console.log("recibi> " + opcion)
+  switch (opcion){
+    case '1': maxCant = 30; break;
+    case '2': maxCant = 30; break;
+    default: maxCant = 30;
+  }
+  inputDescripcion.maxLength = maxCant;
+
+}
+function setCantEt(etiquetas,caracteres){
   cantEt = etiquetas
+  console.log(caracteres)
   $.ajax({
     type: "POST",
     url: "/items/"+userId,
