@@ -16,16 +16,14 @@ selector = document.getElementById('selector')
 userId = uId
 if (etiquetas > 0){
     selector.value = etiquetas;
-    console.log(selector.selectedIndex)
-    selector.disabled = true;
+    //selector.disabled = true;
     setCantEt(etiquetas)
   }
 if (contTa > 0){
   setContTa(contTa)
 }
-console.log('cont Ta> '+contTa)
 contarItems();
-
+desactivarOpcionesSelector(selector,contTa)
 }   
 
 function setContTa(contTa){
@@ -34,7 +32,6 @@ function setContTa(contTa){
 
 function setCantCaracteres(opcion){
   maxCant = 0
-  console.log("recibi> " + opcion)
   switch (opcion){
     case '1': maxCant = 30; break;
     case '2': maxCant = 30; break;
@@ -45,22 +42,35 @@ function setCantCaracteres(opcion){
 }
 function setCantEt(etiquetas,caracteres){
   cantEt = etiquetas
-  console.log(caracteres)
   $.ajax({
     type: "POST",
     url: "/items/"+userId,
     timeout: 5000,
     data: { etiquetas: etiquetas, userId },
     success: function () {
-      console.log('setted Etiquetas')
   },
     error: function(jqXHR, textStatus, errorThrown) {
-      window.location.href = 'error/'
-      alert("AJAX error: " + textStatus + ' : ' + errorThrown);
+      window.location.href = '/'+userId
+      document.getElementById('notificationText').innerHTML = 'No pudimos establecer la cantidad de etiquetas, por favor vuelve a intentarlo'
+      document.getElementById('dangerNotification').hidden = false        
+
+      //alert("AJAX error: " + textStatus + ' : ' + errorThrown);
     }
 });
-contarItems()
+contarItems();
 }
+
+function desactivarOpcionesSelector(selector,cantProd) {
+  var op = selector.getElementsByTagName("option");
+for (var i = 0; i < op.length; i++) {
+  // lowercase comparison for case-insensitivity
+  (op[i].value < cantProd) 
+    ? op[i].disabled = true 
+    : op[i].disabled = false ;
+}
+}
+
+
 
 function agregaProducto(accion,pos) {
 
@@ -71,16 +81,16 @@ function agregaProducto(accion,pos) {
   inputDescripcion.value = '';
   inputPrecio.value = ''; 
   inputDescripcion.focus(); //hacemos foco en el nombre
-  console.log('la posicion es' + pos)
 
   $(function() {
     // body...
     $.ajax({
         type: "POST",
         url: "/items/"+userId,
-        timeout: 2000,
+        timeout: 5000,
         data: { descripcion,precio,accion,pos,userId },
         success: function (result) {
+          document.getElementById('dangerNotification').hidden = true        
           contT =0
           if (accion == 'add'){
             contTabla += 1;
@@ -94,14 +104,14 @@ function agregaProducto(accion,pos) {
             $('tbody').append('<tr><td>'+result[data].descripcion +'</td><td>'+ result[data].precio + '</td><td><span onclick="agregaProducto(\''+"del"+'\',\''+contT+'\')" class="icon has-text-danger button"><i class="fas fa-times fa-2"></i></span></td></tr>');
             contT += 1
           }
-            console.log('set label')
+            desactivarOpcionesSelector(selector,contT)
             contarItems()
 
       },
         error: function(jqXHR, textStatus, errorThrown) {
-            window.location.href = 'error/'
-            alert("AJAX error: " + textStatus + ' : ' + errorThrown);
-        }
+          window.location.href = '/'+userId
+          document.getElementById('notificationText').innerHTML = 'No pudimos agregar o borrar el ultimo Producto \n por favor volver a intentarlo!'
+          document.getElementById('dangerNotification').hidden = false        }
     });
 })
 }
@@ -113,8 +123,6 @@ function imprimir() {
 function contarItems(){
   //Cuenta la catidad de items que se van agregando para bloquear la posibilidad de que se 
   //agreguen mas items de los que se deberia
-  console.log('contTa: '+ contTabla)
-  console.log('cantEt: '+ cantEt)
   if (contTabla >= cantEt || cantEt == 0) {
     botonAgregar.disabled = true;
     inputDescripcion.disabled = true;
@@ -140,17 +148,20 @@ function reestablecer(userId) {
   $.ajax({
     type: "POST",
     url: "/items/"+userId,
-    timeout: 2000,
+    timeout: 5000,
     data: { accion, userId },
     success: function (result) {
       $('tbody').empty();
       $('botonImprimir').disabled = true
       contarItems()
+      contTa = 0
 
   },
     error: function(jqXHR, textStatus, errorThrown) {
-      window.location.href = 'error/';
-      alert("AJAX error: " + textStatus + ' : ' + errorThrown);
+      window.location.href = '/'+userId
+      document.getElementById('notificationText').innerHTML = 'hubo un problema al intentar reestablecer los productos, por favor vuelve a intentarlo'
+      document.getElementById('dangerNotification').hidden = false 
+       // alert("AJAX error: " + textStatus + ' : ' + errorThrown);
     }
 })
   selector.selectedIndex = 0;

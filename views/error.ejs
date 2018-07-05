@@ -1,7 +1,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title><%= title %></title>
+  <title>Error!</title>
   <link rel='stylesheet' href='/css/bulma.css' />
 
   <link rel='stylesheet' href='/stylesheets/style.css' />
@@ -10,7 +10,28 @@
 
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 </head>
-<h1><%= message %></h1>
-<h2><%= error.status %></h2>
-<pre><%= error.stack %></pre>
-<a href="/" class='button is-warning'><%= buttonMsg %></a>
+<div class='container is-fluid'>
+<div class="box">
+    <h1 class='has-text-centered is-size-3'>Algo salio mal!</h1>
+</div>
+<div class='columns'>
+    <div class='column has-text-centered'>
+        <div class='box'>
+            <p class='has-text-centered is-size-4'>
+                Si crees que pasaron mas de 6 horas desde que abriste esta pagina, significa que estas aca por que tu sesion expiro y cualquier etiqueta que o hayas impreso deberas ingresarla nuevamente haciendo click en el siguiente boton:
+            </p>
+            <br><br>
+            <a href='/' class='button is-warning is-fullwidth is-size-4'>Volver a empezar :(</a>
+        </div>
+    </div>
+    <div class='column has-text-centered'>
+        <div class="box">
+            <p class='has-text-centered is-size-4'>
+                De lo contrario significa que hubo un problema en el servidor y es probable que no se hayan borrado las etiquetas, espera unos momentos y haz click en el siguiente boton: 
+            </p>
+            <br><br>
+            <a href='<%= link %>' class='button is-success is-fullwidth is-size-4'>volver a lo que estaba haciendo!</a>
+        </div>
+    </div>
+</div>
+</div>

@@ -6,9 +6,8 @@ uSess = {}
 
 /* GET home page. */
 router.get('/:userId?', function(req, res, next) {
-  console.log('el usuario es: ' + userId)
-
   var userId = req.params.userId
+
   if (userId === undefined)
   { 
     uSess.productos= []
@@ -17,9 +16,11 @@ router.get('/:userId?', function(req, res, next) {
     uSess.cantidadColumnas = 0
     var randomNumber=Math.random().toString();
     uSess.id=parseInt(randomNumber.substring(2,randomNumber.length));
-    res.cookie(uSess.id,uSess, { maxAge: 1000*60*30, httpOnly: false });
+    res.cookie(uSess.id,uSess, { maxAge: 1000*60*60*6, httpOnly: false });
+    res.locals.id = uSess.id
     console.log(uSess)
     console.log('cookie created successfully');
+
     res.render('index', { title: 'Labelit',
                           etiquetas:uSess.etiquetas,
                           cantEtiquetas: uSess.productos.length,
@@ -28,7 +29,6 @@ router.get('/:userId?', function(req, res, next) {
   } 
   else
   {
-    console.log(req.cookies[userId])
     var cookie = req.cookies[userId]|| undefined;
     if (cookie !== undefined)
     { 
@@ -38,12 +38,12 @@ router.get('/:userId?', function(req, res, next) {
                           cantEtiquetas: cookie.productos.length,
                           productos: cookie.productos,
                           userId:cookie.id});
-    console.log('cookie exists', cookie);
     }
     else{
-      res.render('error',{ title:'error!', message:'Error! sesion expirada!', buttonMsg:'volver a la pagina principal'})
+      res.render('error',{ title:'error!', message:'Error! sesion expirada! \n Para continuar por favor presione el boton de abajo', buttonMsg:'volver a la pagina principal'})
         }
   } 
+
 });
 
 router.post('/items/:userId?',function(req, res, next) {
@@ -66,12 +66,9 @@ router.post('/items/:userId?',function(req, res, next) {
     cookiePost.etiquetas = 0
     cookiePost.cssEtiquetas = ''
     cookiePost.cantidadColumnas = 0
-    console.log('la cookie borrada essssss \n')
-    console.log(cookiePost)
 
   }
   else if(req.body.etiquetas){
-    console.log('encontro etiquetas '+ req.body.etiquetas)
     cookiePost.etiquetas = req.body.etiquetas;
     switch (cookiePost.etiquetas) {
       case '1': 
@@ -97,10 +94,9 @@ router.post('/items/:userId?',function(req, res, next) {
         break;
     }
   }
-  res.cookie(userId,cookiePost, { maxAge: 1000*60*30, httpOnly: false });
+  res.cookie(userId,cookiePost, { maxAge: 1000*60*60*6, httpOnly: false });
   res.status(200).send(cookiePost.productos)
-  res.status(500).send('session perdida!')
-  res.status(4).send('session perdida!')
+
 
 });
 

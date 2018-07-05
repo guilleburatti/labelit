@@ -14,17 +14,20 @@
   </head>
   <body onload="iniciar(<%- etiquetas %>,<%- cantEtiquetas %>,<%- userId %>)">
       <h1 class="title"><%= title %></h1>
-      <p></p>
+      <div class="notification is-danger" id='dangerNotification' hidden>
+          <button class="delete" onclick="document.getElementById('dangerNotification').hidden = true"></button>
+          <p id='notificationText'></p>
+        </div>
       <div class="columns">
         <div class="column">
           <div class="field">
             <div class="select is-fullwidth">
-                <select name='selector' id='selector' onchange="setCantEt(this.value);this.disabled=true;setCantCaracteres(this.value)" class="desactivable">
+                <select name='selector' id='selector' onchange="setCantEt(this.value);desactivarOpcionesSelector(this,<%- cantEtiquetas %>);setCantCaracteres(this.value)" class="desactivable">
                   <option value='0' selected disabled >Selecciona la medida de las etiquetas</option>
                   <option value="1"> 25 x 18 ( Para hacer carteles )</option>
                   <option value="2">18 x 12 ( hasta 2 etiquetas ) </option>
-                  <option value='12'> 8 x 4 cm( Hasta 12 etiquetas por hoja )</option>
                   <option value='10'> 9 x 5 cm( Hasta 10 etiquetas por hoja )</option>
+                  <option value='12'> 8 x 4 cm( Hasta 12 etiquetas por hoja )</option>
                   <option value='21'>6 x 3 cm(hasta 21 etiquetas)</option>
                 </select>
               </div>
@@ -40,13 +43,13 @@
                 </div>
               </div>
               <button onclick="agregaProducto('add')" class="button is-success desactivable" id="botonAgregar" disabled>
-                  Agregar
+                  Agregar producto
                 </button>
                 <button onclick="imprimir(<%- userId %>);" class="button is-primary desactivable" id="botonImprimir" href="/labels" disabled>
-                    Imprimir
+                    Vista previa
                 </button>
                 <button onclick="reestablecer(<%- userId %>)" class="button is-danger" id="botonReestablecer">
-                    Reiniciar
+                    Borrar todo
                   </button>
         </div>
       

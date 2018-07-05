@@ -6,8 +6,11 @@ router.get('/:userId', function(req, res,next) {
   var cookie = req.cookies[userId];
   if (cookie === undefined)
   {
-    res.redirect('/')
-  } 
+    console.log('\n \n No encontro las cookies en el label \n \n')
+    res.render('error',{userId:userId,message:'Estuviste mas de media hora inactivo, por favor vuelva a la pagina principal para continuar!', title:'Sesion caducada'})
+    console.log('\n \n despuesde render \n \n')
+
+  }
   else
   {
     // yes, cookie was already present 
