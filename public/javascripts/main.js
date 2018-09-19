@@ -109,7 +109,6 @@ function agregaProducto(accion,pos) {
 
       },
         error: function(jqXHR, textStatus, errorThrown) {
-          window.location.href = '/'+userId
           document.getElementById('notificationText').innerHTML = 'No pudimos agregar o borrar el ultimo Producto \n por favor volver a intentarlo!'
           document.getElementById('dangerNotification').hidden = false        }
     });
@@ -169,3 +168,29 @@ function reestablecer(userId) {
   contTabla =0;
   contarItems();
 }
+
+
+document.addEventListener('DOMContentLoaded', function () {
+
+
+  // Get all "navbar-burger" elements
+  var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+  var $navbarMenu =document.getElementById('navMenu')
+
+  // Check if there are any navbar burgers
+  if ($navbarBurgers.length > 0) {
+
+    // Add a click event on each of them
+    $navbarBurgers.forEach(function ($el) {
+      $el.addEventListener('click', function () {
+
+
+        // Toggle the class on both the "navbar-burger" and the "navbar-menu"
+        $el.classList.toggle('is-active');
+        $navbarMenu.classList.toggle('is-active');
+
+      });
+    });
+  }
+
+});
