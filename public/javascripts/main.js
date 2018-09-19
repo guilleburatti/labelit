@@ -87,7 +87,7 @@ function agregaProducto(accion,pos) {
     $.ajax({
         type: "POST",
         url: "/items/"+userId,
-        timeout: 5000,
+        timeout: 2000,
         data: { descripcion,precio,accion,pos,userId },
         success: function (result) {
           document.getElementById('dangerNotification').hidden = true        
