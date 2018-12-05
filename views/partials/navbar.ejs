@@ -2,8 +2,8 @@
   <div class="container">
     <div class="navbar-brand">
       <a class="navbar-item" href="/">
-        <img src="images/favicon.png" alt="Bulma: a modern CSS framework based on Flexbox" width="30" height="40">
-        <img src="images/titulo.png" alt="Bulma: a modern CSS framework based on Flexbox" width="112" height="28">
+        <img src="/images/favicon.png" alt="Bulma: a modern CSS framework based on Flexbox" width="30" height="40">
+        <img src="/images/titulo.png" alt="Bulma: a modern CSS framework based on Flexbox" width="112" height="28">
       </a>
       <div class="navbar-burger burger" id='navBurger'>
         <span></span>
@@ -18,10 +18,10 @@
           Home
         </a>
 
-            <a class="navbar-item" href="/about">
+            <a class="navbar-item" href="/about/<%- userId %>">
               Sobre Mi
             </a>
-            <a class="navbar-item" href="/help">
+            <a class="navbar-item" href="/help/<%- userId %>">
               Ayuda
             </a>
       </div>

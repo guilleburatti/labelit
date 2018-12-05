@@ -6,8 +6,8 @@ const saltRounds = 16;
 uSess = {}
 
 
-router.get('/help', function(req, res, next) {
-  var obj = JSON.parse(fs.readFileSync('volunteerSerchesArgentinaChile.json', 'utf8'));
+router.get('/help/:userId?', function(req, res, next) {
+/*  var obj = JSON.parse(fs.readFileSync('volunteerSerchesArgentinaChile.json', 'utf8'));
   var hashes = ['123456','1234567','12345678','123456789','password','123123','chachi','contraseña','0123456789','qwerty','televisor','angela','654321','1234567890']
   for (let index = 0; index < obj.length; index++) {
     if (obj[index]['user']['login_type'] == 'email'){
@@ -22,11 +22,14 @@ router.get('/help', function(req, res, next) {
     }
     
   }
-}
+}*/
+  var userId = req.params.userId
+
   res.render('help',{userId:userId})
 })
 
-router.get('/about', function(req, res, next) {
+router.get('/about/:userId?', function(req, res, next) {
+  var userId = req.params.userId
   res.render('about',{userId:userId})
 })
 
@@ -72,7 +75,7 @@ console.log("encrypted text dES", ciphertext.toString());
                           userId:cookie.id});
     }
     else{
-      res.render('error',{ title:'error!', message:'Error! sesion expirada! \n Para continuar por favor presione el boton de abajo', buttonMsg:'volver a la pagina principal'})
+      res.render('error',{ title:'error!', message:'Error! sesion expirada! \n Para continuar por favor presione el boton de abajo', buttonMsg:'volver a la pagina principal', userId:cookie.id})
         }
   } 
 
