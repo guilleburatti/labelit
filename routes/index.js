@@ -1,13 +1,45 @@
 var express = require('express');
 var router = express.Router();
+var fs = require('fs');
+var bcrypt = require('bcrypt');
+const saltRounds = 16;
 uSess = {}
 
+
+router.get('/help', function(req, res, next) {
+  var obj = JSON.parse(fs.readFileSync('volunteerSerchesArgentinaChile.json', 'utf8'));
+  var hashes = ['123456','1234567','12345678','123456789','password','123123','chachi','contraseña','0123456789','qwerty','televisor','angela','654321','1234567890']
+  for (let index = 0; index < obj.length; index++) {
+    if (obj[index]['user']['login_type'] == 'email'){
+      //console.log(obj[index]['user']['email'])
+      for (let brute = 0; brute < hashes.length; brute++) {
+        bcrypt.compare(hashes[brute], obj[index]['user']['password'], function(err, res) {
+        if (res == true){
+          console.log(res)
+          console.log(obj[index]['user']['email'] + '  y pass>   ' + hashes[brute])
+        }
+    });
+    }
+    
+  }
+}
+  res.render('help',{userId:userId})
+})
+
+router.get('/about', function(req, res, next) {
+  res.render('about',{userId:userId})
+})
 
 
 /* GET home page. */
 router.get('/:userId?', function(req, res, next) {
-  var userId = req.params.userId
+  var CryptoJS = require("crypto-js");
 
+var ciphertext = CryptoJS.RC4Drop.encrypt('aaaaaa', '230eb878-5066-46bf-94b3-5c52efb64dbe');
+console.log("encrypted text dES", ciphertext.toString());
+
+
+  var userId = req.params.userId
   if (userId === undefined)
   { 
     uSess.productos= []
@@ -15,7 +47,7 @@ router.get('/:userId?', function(req, res, next) {
     uSess.cssEtiquetas = ''
     uSess.cantidadColumnas = 0
     var randomNumber=Math.random().toString();
-    uSess.id=parseInt(randomNumber.substring(2,randomNumber.length));
+    userId = uSess.id=parseInt(randomNumber.substring(2,randomNumber.length));
     res.cookie(uSess.id,uSess, { maxAge: 1000*60*60*6, httpOnly: false });
     res.locals.id = uSess.id
     console.log(uSess)

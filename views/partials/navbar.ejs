@@ -1,0 +1,55 @@
+<nav class="navbar has-shadow">
+  <div class="container">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <img src="images/favicon.png" alt="Bulma: a modern CSS framework based on Flexbox" width="30" height="40">
+        <img src="images/titulo.png" alt="Bulma: a modern CSS framework based on Flexbox" width="112" height="28">
+      </a>
+      <div class="navbar-burger burger" id='navBurger'>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  
+    <div id='navMenu' class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item" href="/<%- userId %>">
+          Home
+        </a>
+
+            <a class="navbar-item" href="/about">
+              Sobre Mi
+            </a>
+            <a class="navbar-item" href="/help">
+              Ayuda
+            </a>
+      </div>
+  
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="field is-grouped">
+            <p class="control">
+              <a class="bd-tw-button button" data-social-network="Twitter" data-social-action="tweet" data-social-target="labelitarg.herokuapp.com" target="_blank" href="https://twitter.com/intent/tweet?text=Labelit un creador de etiquetas para comercios&amp;hashtags=labelit&amp;url=http://labelitarg.herokuapp.com&amp;via=LabelitArg">
+                <span class="icon">
+                  <i class="fab fa-twitter"></i>
+                </span>
+                <span>
+                  Tweet
+                </span>
+              </a>
+            </p>
+            <p class="control">
+              <a class="button is-primary" href="https://github.com/guilleburatti/labelit">
+                <span class="icon">
+                  <i class="fas fa-download"></i>
+                </span>
+                <span>Descargar!</span>
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </nav>

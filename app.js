@@ -30,6 +30,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/help',indexRouter)
+app.use('/about', indexRouter)
 app.use('/users', usersRouter);
 app.use('/labels', labelsRouter);
 app.use('/error',errorRouter);
@@ -55,8 +57,10 @@ app.use(function(err, req, res, next) {
   res.locals.error = req.app.get('env') === 'development' ? err : {};
   // render the error page
   res.status(err.status || 500);
+  console.log('lasdoaskdsad')
+  console.log(err.message)
 
-  res.render('error',{ link: req.headers.referer })   
+  res.render('error',{ link: req.headers.referer, error:'res.locals.message' })   
 });
 
 var server     =    app.listen(3000,function(){

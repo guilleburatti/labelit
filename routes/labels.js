@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/:userId', function(req, res,next) {
+router.get('/:userId?', function(req, res,next) {
   userId = req.params.userId
   var cookie = req.cookies[userId];
   if (cookie === undefined)
