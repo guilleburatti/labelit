@@ -20,19 +20,13 @@
 
         <div class='box'>
             <p class='has-text-centered is-size-4'>
-                Si crees que pasaron mas de 6 horas desde que abriste esta pagina, significa que estas aca por que tu sesion expiro y cualquier etiqueta que o hayas impreso deberas ingresarla nuevamente haciendo click en el siguiente boton:
+                <% if (message != undefined) { %>
+                <%- message %>
+                <% } else { %>
+                Algo salio mal, podes comentarnos de ester error comunicandote mediante los datos brindados en la pagina About <% } %>
             </p>
             <br><br>
             <a href='/' class='button is-warning is-fullwidth is-size-4'>Volver a empezar :(</a>
-        </div>
-    </div>
-    <div class='column has-text-centered'>
-        <div class="box">
-            <p class='has-text-centered is-size-4'>
-                De lo contrario significa que hubo un problema en el servidor y es probable que no se hayan borrado las etiquetas, espera unos momentos y haz click en el siguiente boton: 
-            </p>
-            <br><br>
-            <a href='/' class='button is-success is-fullwidth is-size-4'>volver a lo que estaba haciendo!</a>
         </div>
     </div>
 </div>

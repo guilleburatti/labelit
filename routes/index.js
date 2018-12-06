@@ -29,7 +29,7 @@ router.get('/help/:userId?', function(req, res, next) {
 })
 
 router.get('/about/:userId?', function(req, res, next) {
-  var userId = req.params.userId
+    var userId = req.params.userId
   res.render('about',{userId:userId})
 })
 
@@ -51,7 +51,7 @@ console.log("encrypted text dES", ciphertext.toString());
     uSess.cantidadColumnas = 0
     var randomNumber=Math.random().toString();
     userId = uSess.id=parseInt(randomNumber.substring(2,randomNumber.length));
-    res.cookie(uSess.id,uSess, { maxAge: 1000*60*60*6, httpOnly: false });
+    res.cookie(uSess.id,uSess, { maxAge: 1000*60*60*24, httpOnly: false });
     res.locals.id = uSess.id
     console.log(uSess)
     console.log('cookie created successfully');
@@ -75,7 +75,8 @@ console.log("encrypted text dES", ciphertext.toString());
                           userId:cookie.id});
     }
     else{
-      res.render('error',{ title:'error!', message:'Error! sesion expirada! \n Para continuar por favor presione el boton de abajo', buttonMsg:'volver a la pagina principal', userId:cookie.id})
+      mensaje = "La sesion ha expirado, esto significa que paso mucho tiempo desde la ultima vez que nos visitaste, los datos se guardan durante 24 horas en el servidor, luego de eso se borran. \n Estams trabajando para mejorar la pagina, cualquier comentario que necesites hacer puedes hacerlo mediante los datos brindados en la seccion <a href='/about'>about</a> \n para Volver a crear etiquetas presiona el boton de abajo."
+      res.render('error',{ title:'error!', message:mensaje, buttonMsg:'volver a la pagina principal', userId:''})
         }
   } 
 

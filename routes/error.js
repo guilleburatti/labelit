@@ -1,9 +1,12 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/',function(req, res, next) {
-
-        res.render('error',{link:'/'})   
+router.get('/:userId',function(req, res, next) {
+        var userId = req.params.userId
+        if (userId == undefined) {
+                userId = ''
+        }
+        res.render('error',{link:'/',userId:''})   
 
 })
 
