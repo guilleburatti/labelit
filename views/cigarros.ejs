@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel='stylesheet' href='/css/bulma.css' />
+
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <script src="/js/jquery.min.js"></script>
+  <script src="\javascripts\main.js"></script>
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+    crossorigin="anonymous">
+</head>
+
+<body>
+  <%- include partials/navbar.ejs %>
+  <div class='container is-fluid'>
+    <div class="box">
+      <h1 class='has-text-centered is-size-3'>Calculador de costos de cigarrillos</h1>
+    </div>
+    <div class='columns'>
+      <div class='column'>
+        <table class="
+        table is-bordered is-fullwidth is-striped is-narrow">
+            <thead>
+              <td>Nombre del Cigarrillo</td>
+              <td>Cantidad</td>
+              <td>Precio unitario</td>
+              <td>subtotal:</td>
+            </thead>
+            <tbody>
+            <% for(var i = 0; i< listaPreciosCigarros.cigarrillo.length ; i++) { %>
+              <tr>
+                <td class="has-text-right"><%- listaPreciosCigarros.cigarrillo[i].nombre %></td>
+                <td><input value=0 type="number" maxlength="3" size='5' name='cantidadCigarrillos' id="cantCigarrillos<%- i %>" onchange='actualizarTodo("<%- i %>","<%- listaPreciosCigarros.cigarrillo[i].preciCompra %>")'></td>
+                <td class="has-text-centered"><%- listaPreciosCigarros.cigarrillo[i].preciCompra %></td>
+                <td id="subTotal<%- i %>" name='subTotal'>0</td>
+              </tr>
+            <% } %>
+            <tr>
+              <td colspan=3>Total:</td>
+              <td id="cellTotal"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+</body>

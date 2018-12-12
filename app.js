@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
+var cigarrosRouter = require('./routes/cigarros');
 var usersRouter = require('./routes/users');
 var labelsRouter = require('./routes/labels');
 var errorRouter = require('./routes/error');
@@ -30,8 +31,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/help',indexRouter)
-app.use('/about', indexRouter)
+app.use('/cigarros',cigarrosRouter);
+app.use('/help',indexRouter);
+app.use('/about', indexRouter);
 app.use('/users', usersRouter);
 app.use('/labels', labelsRouter);
 app.use('/error',errorRouter);
@@ -60,7 +62,7 @@ app.use(function(err, req, res, next) {
   console.log('lasdoaskdsad')
   console.log(err.message)
 
-  res.render('error',{ link: req.headers.referer, error:'res.locals.message' })   
+  res.render('error',{ link: req.headers.referer, error:'res.locals.message', userId:'' })   
 });
 
 var server     =    app.listen(3000,function(){

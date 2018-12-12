@@ -130,7 +130,7 @@ router.post('/items/:userId?',function(req, res, next) {
         break;
     }
   }
-  res.cookie(userId,cookiePost, { maxAge: 1000*60*60*6, httpOnly: false });
+  res.cookie(userId,cookiePost, { maxAge: 1000*60*60*24, httpOnly: false });
   res.status(200).send(cookiePost.productos)
 
 

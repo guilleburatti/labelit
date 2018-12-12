@@ -2,6 +2,7 @@ var contTabla = 0;
 var cantEt = 0;
 var userId = 0;
 var myvar = 'variableeeee'
+var sumTotalCigarrillos = 0
 function iniciar(etiquetas, contTa, uId) {
   //Guardarmos elementos para usarlos mas facilmente
   if (!window.location.href.includes(uId)) {
@@ -40,6 +41,29 @@ function setCantCaracteres(opcion) {
   inputDescripcion.maxLength = maxCant;
 
 }
+function actualizarTodo(posId,precioCigarrillo){
+  inputCantidad = "cantCigarrillos"+posId
+  subTotalId = "subTotal"+posId
+  cantidad = parseFloat(document.getElementById(inputCantidad).value)
+  console.log(cantidad)
+  sumaCiga = (precioCigarrillo * cantidad).toFixed(2)
+  console.log(precioCigarrillo)
+  document.getElementById(subTotalId).innerText = sumaCiga
+  actualizarTotal()
+
+}
+function actualizarTotal(){
+  sumTotalCigarrillos = 0,01
+  for (let index = 0; index < document.getElementsByName('subTotal').length; index++) {
+    subTotalId = "subTotal"+index
+    if ( document.getElementById(subTotalId).innerText != isNaN){
+    subTotal = parseFloat(document.getElementById(subTotalId).innerText)
+    sumTotalCigarrillos += parseFloat(document.getElementById(subTotalId).innerText)
+    }
+    document.getElementById('cellTotal').innerText = sumTotalCigarrillos
+  }
+}
+
 function setCantEt(etiquetas, caracteres) {
   cantEt = etiquetas
   $.ajax({
